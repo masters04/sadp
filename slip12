@@ -1,0 +1,68 @@
+// Component interface
+interface Car {
+    void assemble();
+}
+
+// Concrete component
+class BasicCar implements Car {
+    @Override
+    public void assemble() {
+        System.out.print("Basic Car.");
+    }
+}
+
+// Decorator abstract class
+abstract class CarDecorator implements Car {
+    protected Car car;
+
+    public CarDecorator(Car car) {
+        this.car = car;
+    }
+
+    @Override
+    public void assemble() {
+        car.assemble();
+    }
+}
+
+// Concrete decorators
+class SportsCar extends CarDecorator {
+    public SportsCar(Car car) {
+        super(car);
+    }
+
+    @Override
+    public void assemble() {
+        super.assemble();
+        System.out.print(" Adding features of Sports Car.");
+    }
+}
+
+class LuxuryCar extends CarDecorator {
+    public LuxuryCar(Car car) {
+        super(car);
+    }
+
+    @Override
+    public void assemble() {
+        super.assemble();
+        System.out.print(" Adding features of Luxury Car.");
+    }
+}
+
+// Main class
+public class Main {
+    public static void main(String[] args) {
+        Car basicCar = new BasicCar();
+        basicCar.assemble();
+        System.out.println();
+
+        Car sportsCar = new SportsCar(new BasicCar());
+        sportsCar.assemble();
+        System.out.println();
+
+        Car luxuryCar = new LuxuryCar(new BasicCar());
+        luxuryCar.assemble();
+        System.out.println();
+    }
+}
